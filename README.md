@@ -2,16 +2,16 @@
 
 # 🎨 Ox_lib · Design style RageUI
 
-**Un nouveau design moderne pour toute l'interface d'ox_lib.**
+**Un nouveau design moderne pour toute l'interface d'ox_lib.**<br>
 Installe, redémarre, c'est prêt : aucun script à modifier.
 
 ![Gratuit](https://img.shields.io/badge/gratuit-oui-3fbf6b?style=for-the-badge)
-![ox_lib](https://img.shields.io/badge/ox__lib-3.39.0-0a8cf0?style=for-the-badge)
+![ox_lib](https://img.shields.io/badge/ox__lib-3.39.0-c0262d?style=for-the-badge)
 ![Licence](https://img.shields.io/badge/licence-LGPL--3.0-1a1a1f?style=for-the-badge)
-<img width="395" height="432" alt="Capture d&#39;écran 2026-10-03 165339" src="https://github.com/user-attachments/assets/5601276d-4571-479e-aad9-9d023d50b9fc" />
-<img width="420" height="451" alt="Capture d&#39;écran 2026-10-03 165305" src="https://github.com/user-attachments/assets/e791fb5c-8f37-4170-80e5-3490e851bdff" />
 
-![Aperçu](docs/apercu-scene.png)
+<br>
+
+<img src="docs/apercu-scene.png" alt="Aperçu" width="900">
 
 </div>
 
@@ -21,11 +21,19 @@ Menus, context menus, notifications, barres de progression, TextUI, formulaires,
 
 | Context menu | Formulaire |
 |:---:|:---:|
-| ![Context menu](docs/context.png) | ![Formulaire](docs/formulaire.png) |
+| <img src="docs/context.png" alt="Context menu" width="400"> | <img src="docs/formulaire.png" alt="Formulaire" width="400"> |
+| **Radial menu** | **Skill check** |
+| <img src="docs/radial.png" alt="Radial menu" width="400"> | <img src="docs/skillcheck.png" alt="Skill check" width="400"> |
 
-| Radial menu | Skill check |
-|:---:|:---:|
-| ![Radial](docs/radial.png) | ![Skill check](docs/skillcheck.png) |
+## 📸 En jeu
+
+Captures sur un vrai serveur, avec la couleur passée en bleu en une seule ligne :
+
+<div align="center">
+<img width="380" alt="Menu Personnel en jeu" src="https://github.com/user-attachments/assets/5601276d-4571-479e-aad9-9d023d50b9fc" />
+&nbsp;&nbsp;
+<img width="380" alt="Menu Vigneron en jeu" src="https://github.com/user-attachments/assets/e791fb5c-8f37-4170-80e5-3490e851bdff" />
+</div>
 
 ## 🚀 Installation
 
@@ -40,10 +48,12 @@ Menus, context menus, notifications, barres de progression, TextUI, formulaires,
 Ajoute une ligne dans ton `server.cfg`, **avant** `ensure ox_lib` :
 
 ```cfg
-setr ox_ui:accent "rgb(0, 140, 240)"
+setr ox_ui:accent "rgb(192, 38, 45)"
 ```
 
-Cette ligne suffit à recolorer tout le menu. Pour aller plus loin (fond, en-tête, police, arrondis…), le fichier [`ox_ui.cfg`](ox_ui.cfg) contient un réglage complet et plusieurs thèmes prêts à l'emploi.
+Cette ligne suffit à recolorer tout le menu. Par exemple, `rgb(0, 140, 240)` donne le bleu des captures en jeu.
+
+Pour aller plus loin (fond, en-tête, police, arrondis…), le fichier [`ox_ui.cfg`](ox_ui.cfg) contient un réglage complet et plusieurs thèmes prêts à l'emploi.
 
 ## 🧩 Bonus : ligne d'info dans les menus
 
@@ -51,7 +61,7 @@ Cette ligne suffit à recolorer tout le menu. Pour aller plus loin (fond, en-tê
 lib.registerMenu({
     id = 'personnel',
     title = 'Personnel',
-    info = 'ID : ~b~1~s~ | Métier : ~b~Vigneron~s~',
+    info = 'ID : ~r~1~s~ | Métier : ~r~Vigneron~s~',
     options = { ... },
 })
 ```
@@ -62,6 +72,8 @@ lib.registerMenu({
 - Icônes : Font Awesome Free. Polices : Poppins et Roboto.
 
 <div align="center">
+
+<br>
 
 Projet gratuit par **[TStudio-59](https://github.com/TStudio-59)**. Une ⭐ fait toujours plaisir !
 
