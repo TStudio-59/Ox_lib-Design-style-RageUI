@@ -1,0 +1,292 @@
+/*
+ * ox_lib · thème « Studio »
+ * Panneaux sombres semi-transparents aux coins arrondis, en-tête teintée, options en cartes,
+ * sélection de la couleur d'accent. Actif quand config.js contient theme: 'studio'.
+ * La couleur d'accent se règle dans config.js (accentColor) ; le reste ci-dessous.
+ */
+/* Poppins (SIL Open Font License) — embarquée dans fonts/ */
+@font-face { font-family: 'Poppins'; src: url('../fonts/Poppins-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Poppins'; src: url('../fonts/Poppins-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; }
+@font-face { font-family: 'Poppins'; src: url('../fonts/Poppins-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; }
+@font-face { font-family: 'Poppins'; src: url('../fonts/Poppins-Bold.ttf') format('truetype'); font-weight: 600 700; font-style: normal; }
+@font-face { font-family: 'Poppins'; src: url('../fonts/Poppins-BoldItalic.ttf') format('truetype'); font-weight: 600 700; font-style: italic; }
+
+html.theme-studio {
+  --st-accent: 160, 22, 22; /* remplacé par accentColor (config.js) */
+  --st-bg: rgba(14, 14, 18, 0.74); /* fond des panneaux */
+  --st-item: rgba(0, 0, 0, 0.5); /* fond d'une option */
+  --st-border: rgba(255, 255, 255, 0.07);
+  --st-radius: 4px;
+  --st-gap: 7px; /* espace entre les options */
+  --st-header: rgba(var(--st-accent), 0.5); /* fond de l'en-tête */
+  --st-subbar: var(--st-bg); /* fond de la barre de sous-titre */
+
+  --rui-font: 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  --rui-title-font: var(--rui-font);
+  --rui-title-max: 40;
+  --rui-width: 390px;
+  --rui-row-h: 38px;
+
+  --rui-subtitle-text: #fff;
+  --rui-text: #f2f2f2;
+  --rui-sel-bg: rgba(var(--st-accent), 0.85);
+  --rui-sel-text: #fff;
+  --rui-inert-sel-bg: rgba(255, 255, 255, 0.08);
+  --rui-accent: rgb(var(--st-accent));
+  --rui-fill: rgb(var(--st-accent));
+  --rui-track: rgba(255, 255, 255, 0.14);
+  --rui-fill-sel: #fff;
+  --rui-track-sel: rgba(255, 255, 255, 0.28);
+  --rui-key-bg: rgb(var(--st-accent));
+  --rui-key-text: #fff;
+  --rui-toast-bg: var(--st-bg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Panneau (menu, context, dialogues)                                  */
+/* ------------------------------------------------------------------ */
+.theme-studio .rui-panel { font-size: 15px; }
+
+.theme-studio .rui-banner {
+  height: 96px;
+  border-radius: var(--st-radius) var(--st-radius) 0 0;
+  background-color: transparent;
+  background-image: var(
+    --rui-banner-img,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.12) 100%),
+    linear-gradient(var(--st-header), var(--st-header)),
+    linear-gradient(rgba(10, 10, 12, 0.35), rgba(10, 10, 12, 0.35))
+  );
+}
+.theme-studio .rui-banner::after { content: none; }
+.theme-studio .rui-banner__title {
+  padding: 0 4px;
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.theme-studio .rui-subtitle {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 0 0 var(--st-radius) var(--st-radius);
+  background: var(--st-subbar);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+.theme-studio .rui-subtitle__count { font-size: 13px; }
+
+/* Bloc des options */
+.theme-studio .rui-body {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: var(--st-radius);
+  background: var(--st-bg);
+}
+.theme-studio .rui-info {
+  padding: 4px 6px 12px;
+  border-bottom: 0;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+.theme-studio .rui-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-gap);
+  max-height: calc(var(--rui-rows) * (var(--rui-row-h) + var(--st-gap)) - var(--st-gap));
+}
+
+.theme-studio .rui-item {
+  flex-shrink: 0;
+  min-height: var(--rui-row-h);
+  padding: 0 12px;
+  border: 1px solid var(--st-border);
+  border-radius: calc(var(--st-radius) * 0.75);
+  background: var(--st-item);
+  transition: background 0.08s ease, border-color 0.08s ease;
+}
+.theme-studio .rui-item.is-selected,
+.theme-studio .rui-field.is-active { background: var(--rui-sel-bg); color: var(--rui-sel-text); border-color: rgba(255, 255, 255, 0.16); }
+.theme-studio .rui-item.is-inert.is-selected { background: var(--rui-inert-sel-bg); border-color: var(--st-border); }
+.theme-studio .rui-item.is-disabled.is-selected { color: var(--rui-muted); }
+.theme-studio .rui-item__left { flex-basis: 18px; font-size: 15px; }
+.theme-studio .rui-item.is-selected .rui-muted { color: rgba(255, 255, 255, 0.75); }
+.theme-studio .rui-rlabel { font-size: 13px; font-weight: 600; letter-spacing: 0; }
+.theme-studio .rui-check { border-radius: 3px; width: 20px; height: 20px; }
+.theme-studio .rui-check svg { width: 14px; height: 14px; }
+.theme-studio .rui-bar,
+.theme-studio .rui-bar > i { border-radius: 3px; }
+.theme-studio .rui-bar { height: 8px; }
+
+.theme-studio .rui-nav {
+  height: 22px;
+  margin-top: 6px;
+  background: transparent;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.theme-studio .rui-desc,
+.theme-studio .rui-stats {
+  margin-top: 10px;
+  padding: 11px 14px;
+  border-top: 0;
+  border-radius: var(--st-radius);
+  background: var(--st-bg);
+  font-size: 13.5px;
+}
+
+/* Touches */
+.theme-studio .rui-key {
+  border-radius: 3px;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+  font-family: var(--rui-font);
+}
+.theme-studio .is-selected .rui-key,
+.theme-studio .is-active .rui-key { background: rgba(0, 0, 0, 0.35); color: #fff; box-shadow: none; }
+
+/* ------------------------------------------------------------------ */
+/* Dialogues                                                           */
+/* ------------------------------------------------------------------ */
+.theme-studio .rui-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-gap);
+  margin-top: var(--st-gap);
+  border-top: 0;
+}
+.theme-studio .rui-dialog:not(.rui-alert) .rui-action:hover,
+.theme-studio .rui-dialog:not(.rui-alert) .rui-action:focus { background: var(--rui-sel-bg); color: #fff; }
+.theme-studio .rui-dialog:not(.rui-alert) .rui-action:hover .rui-key { background: rgba(0, 0, 0, 0.35); }
+.theme-studio .rui-alert__content {
+  display: block;
+  padding: 11px 13px;
+  border: 1px solid var(--st-border);
+  border-radius: 3px;
+  background: var(--st-item);
+  font-size: 14.5px;
+}
+.theme-studio .rui-field { min-height: 40px; }
+.theme-studio .rui-input,
+.theme-studio .rui-textarea {
+  border-color: rgba(255, 255, 255, 0.14);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.theme-studio .rui-input:focus,
+.theme-studio .rui-textarea:focus { border-color: rgba(var(--st-accent), 1); box-shadow: 0 0 0 1px rgba(var(--st-accent), 0.6); }
+.theme-studio .is-active .rui-input,
+.theme-studio .is-active .rui-textarea { background: rgba(0, 0, 0, 0.28); border-color: rgba(255, 255, 255, 0.3); color: #fff; }
+.theme-studio .is-active .rui-input::placeholder,
+.theme-studio .is-active .rui-textarea::placeholder { color: rgba(255, 255, 255, 0.55); }
+.theme-studio .is-active .rui-input:focus,
+.theme-studio .is-active .rui-textarea:focus { border-color: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6); }
+.theme-studio .rui-range { height: 8px; border-radius: 4px; }
+.theme-studio .rui-range::-webkit-slider-thumb { width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px rgba(var(--st-accent), 1); }
+.theme-studio .is-active .rui-range::-webkit-slider-thumb { background: #fff; box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.4); }
+.theme-studio .rui-swatch { border-radius: 3px; }
+.theme-studio .is-active .rui-swatch { border-color: rgba(255, 255, 255, 0.7); }
+.theme-studio .is-active .rui-req,
+.theme-studio .is-selected .rui-req { color: #fff; }
+.theme-studio .rui-field.is-invalid { box-shadow: inset 3px 0 0 #ff4b4b; }
+.theme-studio .rui-field.is-invalid .rui-item__label { color: #ff6b6b; }
+.theme-studio .rui-field.is-invalid.is-active .rui-item__label { color: #fff; }
+
+/* Popovers */
+.theme-studio .rui-pop {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--st-radius);
+  background: #0e0e12;
+  overflow: hidden;
+}
+.theme-studio .rui-pop__search { background: rgba(0, 0, 0, 0.4); }
+.theme-studio .rui-pop__items { display: flex; flex-direction: column; gap: 4px; padding: 6px; }
+.theme-studio .rui-pop__items .rui-item { min-height: 34px; background: var(--st-item); }
+.theme-studio .rui-pop__items .rui-item.is-hl { background: var(--rui-sel-bg); color: #fff; }
+.theme-studio .rui-cal__day { border-radius: 3px; }
+.theme-studio .rui-cal__day.is-today { box-shadow: inset 0 0 0 1px rgba(var(--st-accent), 1); }
+.theme-studio .rui-cal__day.is-range { background: rgba(var(--st-accent), 0.3); }
+.theme-studio .rui-cal__day.is-sel { background: rgb(var(--st-accent)); color: #fff; }
+.theme-studio .rui-spin__ampm { border-radius: 3px; }
+.theme-studio .rui-spin__ampm:hover { background: rgb(var(--st-accent)); color: #fff; }
+.theme-studio .rui-cp__sv,
+.theme-studio .rui-cp__bar,
+.theme-studio .rui-cp__text { border-radius: 3px; }
+
+/* ------------------------------------------------------------------ */
+/* Notifications                                                       */
+/* ------------------------------------------------------------------ */
+.theme-studio .rui-toast {
+  border: 1px solid var(--st-border);
+  border-radius: var(--st-radius);
+  background: var(--rui-toast-bg);
+  padding: 10px 13px 12px 10px;
+}
+.theme-studio .rui-toast__icon { border-radius: 3px; }
+.theme-studio .rui-toast__title { font-weight: 600; }
+.theme-studio .rui-toast__desc { color: #d6d6d6; }
+
+/* ------------------------------------------------------------------ */
+/* Progression                                                         */
+/* ------------------------------------------------------------------ */
+.theme-studio .rui-progress {
+  padding: 11px 13px 13px;
+  border-radius: var(--st-radius);
+  background: var(--st-bg);
+}
+.theme-studio .rui-progress__head {
+  height: auto;
+  padding: 0 0 9px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+}
+.theme-studio .rui-progress__pct { font-size: 13px; opacity: 0.85; }
+.theme-studio .rui-progress__track { padding: 0; background: transparent; }
+.theme-studio .rui-progress__track::before { left: 0; right: 0; top: 0; height: 8px; border-radius: 4px; background: var(--rui-track); }
+.theme-studio .rui-progress__fill { height: 8px; border-radius: 4px; background: var(--rui-fill); }
+
+.theme-studio .rui-circle__disc { fill: var(--st-bg); }
+.theme-studio .rui-circle__track { stroke: rgba(255, 255, 255, 0.12); }
+.theme-studio .rui-circle__fill { stroke: rgb(var(--st-accent)); stroke-linecap: round; }
+.theme-studio .rui-circle__label { border-radius: var(--st-radius); background: var(--st-bg); }
+
+/* ------------------------------------------------------------------ */
+/* TextUI                                                              */
+/* ------------------------------------------------------------------ */
+.theme-studio .rui-textui {
+  border: 1px solid var(--st-border);
+  border-left: 3px solid rgb(var(--st-accent));
+  border-radius: var(--st-radius);
+  background: var(--st-bg);
+  font-size: 14.5px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Radial menu                                                         */
+/* ------------------------------------------------------------------ */
+.theme-studio .rui-radial__bg { fill: transparent; }
+.theme-studio .rui-radial__shape { fill: var(--st-bg); stroke: var(--st-border); stroke-width: 1; }
+.theme-studio .rui-radial__sector.is-hover .rui-radial__shape { fill: rgba(var(--st-accent), 0.88); }
+.theme-studio .rui-radial__accent { fill: #fff; opacity: 0.85; }
+.theme-studio .rui-radial__hub { fill: rgba(14, 14, 18, 0.9); stroke: rgba(var(--st-accent), 0.9); }
+.theme-studio .rui-radial__hub.is-hover { fill: rgba(var(--st-accent), 0.9); }
+.theme-studio .rui-radial__label { font-weight: 600; }
+
+/* ------------------------------------------------------------------ */
+/* Skill check                                                         */
+/* ------------------------------------------------------------------ */
+.theme-studio .rui-skill__disc { fill: var(--st-bg); }
+.theme-studio .rui-skill__track { stroke: rgba(14, 14, 18, 0.85); }
+.theme-studio .rui-skill__area { stroke: rgb(var(--st-accent)); }
+.theme-studio .rui-skill__needle { stroke: #fff; }
+.theme-studio .rui-skill__stages i { border-radius: 2px; }
+.theme-studio .rui-skill.is-fail .rui-skill__area,
+.theme-studio .rui-skill.is-fail .rui-skill__track { stroke: #ff4b4b; }
